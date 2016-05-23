@@ -17,11 +17,12 @@ object MLlibTestsBuild extends Build {
     organization := "org.spark-project",
     version := "0.1",
     scalaVersion := "2.10.4",
-    sparkVersion := sys.props.getOrElse("spark.version", default="1.5.2"),
+    sparkVersion := sys.props.getOrElse("spark.version", default="2.0.0-SNAPSHOT"),
     libraryDependencies ++= Seq(
       "net.sf.jopt-simple" % "jopt-simple" % "4.6",
       "org.scalatest" %% "scalatest" % "2.2.1" % "test",
       "org.slf4j" % "slf4j-log4j12" % "1.7.2",
+      "com.typesafe" % "scalalogging-slf4j_2.10" % "1.1.0",
       "org.json4s" %% "json4s-native" % "3.2.9",
       "org.apache.spark" %% "spark-mllib" % sparkVersion.value % "provided"
     )
@@ -37,6 +38,7 @@ object MLlibTestsBuild extends Build {
           case v if v.startsWith("1.5.") => "v1p5"
           case v if v.startsWith("1.6.") =>
             "v1p5" // acceptable for now, but change later when new algs are added
+          case v if v.startsWith("2.0.") => "v2p0"
           case _ => throw new IllegalArgumentException(s"Do not support Spark ${sparkVersion.value}.")
         }
         baseDirectory.value / targetFolder / "src" / "main" / "scala"
