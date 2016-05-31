@@ -15,6 +15,7 @@ object MLlibTestsBuild extends Build {
 
   lazy val commonSettings = Seq(
     organization := "org.spark-project",
+    resolvers += Resolver.mavenLocal,
     version := "0.1",
     scalaVersion := "2.10.4",
     sparkVersion := sys.props.getOrElse("spark.version", default="2.0.0-SNAPSHOT"),
